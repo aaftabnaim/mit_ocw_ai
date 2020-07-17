@@ -1,0 +1,44 @@
+The main goal of this lab is understanding the Minimax Algorithm.
+
+Focused Evaluate
+
+Focused Evaluate is a evaluation fuction which is supposed to evaluate better than the function basic evaluate in basic_player.py
+It should allow the computer play just like a human player would,(i.e. to win quickly when it see's a winnning move and to loose slowly 
+when it see's a loosing move).
+This is how O made my focused_evaluate.
+
+It returns +1000 if the current player has won the game.Else it returns -1000 if the opponent of the current player has won the game.
+In order to make the winning player win faster I have substracted the number of tokens on the board from 1000 whenever there is a wining move.
+This way the player would prefer the board with the least number of tokens when it see's a winning move.
+
+On the other hand I have added the number of tokens on the board to -1000 in order to make the player loose slowly.This way the board with 
+more tokens will be prefered by the player if it see's a loosing move.
+
+Better Evaluate
+
+Better Evaluate is a function that will evaluate a given board in a way that it would beat the other two evaluation functions.
+This is what I have done in my better_evaluate.
+
+1.I take all the chains that are of length 2 or 3, each player has on a board.These chains could be positioned only in the following ways
+
+****    or *            or          *    or  *
+              *                   *          *
+                *              *             *
+                  *          *               *
+   Depending on the gradient I then check if each of these chains could be extended.If yes the score increases
+   Else if the chain could not be extended the score will be reduced.
+   
+   You can see how I have implemented this in my open_spaces_player function
+   
+2. Then I have also taken the essence of focused evaluate and basic evaluate in order to strengthen the above heuristic.
+
+Alpha Beta Search Function
+
+The alpha-beta search function is a more optimal version of minimax.So what I have done is taking the original minimax function given in the lab and modifying it in way where 
+the lower boundary(alpha) and upper boundary(beta) get propagated down to the children boards.Remember that each player in the given minimax function thinks that he is a maximizer.
+So it would always try to go with the maximum value.So when propagating alpha beta we should negate them propagation for it to work correctly.You will understand this if you go through 
+my code.
+The search will stop whenever alpha exceeds beta.In other words whenever the lowest assured value exceeds the highest assured value there will be no point continuing the search.So the 
+search for tha paticular board will be aborted savign us more time and allowing us to reach a higher depth.
+
+
